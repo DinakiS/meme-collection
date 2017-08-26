@@ -1,0 +1,53 @@
+nav button {
+  font-size: 1.35rem;
+  line-height: 1px;
+  padding: .35rem .5rem; }
+
+#meme-list {
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+  #meme-list .meme {
+    margin: 10px;
+    max-width: 300px; }
+    #meme-list .meme .img-container {
+      height: 250px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center; }
+      #meme-list .meme .img-container img {
+        height: 100%;
+        width: auto; }
+    #meme-list .meme .tags .badge {
+      cursor: pointer; }
+
+#modal-add #add-meme-img, #modal-add #edit-meme-img, #modal-edit #add-meme-img, #modal-edit #edit-meme-img {
+  max-width: 100%;
+  max-height: 200px; }
+
+#big-meme-img {
+  display: block;
+  max-width: 100%;
+  margin: auto; }
+
+div#dropZone {
+  background: gray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  opacity: 0.8;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px; }
+  div#dropZone span {
+    padding: 15px;
+    border: 3px dashed #e2e2e2;
+    border-radius: 15px; }
+
+/*# sourceMappingURL=main.css.map */

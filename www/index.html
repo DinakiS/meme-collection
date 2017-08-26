@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meme Collection</title>
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-light bg-light">
+        <div>
+            <button class='btn btn-primary' data-toggle='modal' data-target='#modal-add'><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button class='btn btn-secondary' data-toggle='modal' data-target='#modal-help'><i class="fa fa-question" aria-hidden="true"></i></button>
+        </div>
+        <span><span data-i18n="Memes count">Memes count:</span> <span id='memes-count'></span></span>
+        <form class="form-inline">
+            <input type="text" class="form-control" placeholder="Search" aria-label="Search" id='search' data-i18n="[placeholder]Search">
+        </form>
+    </nav>
+    <div id="meme-list"></div>
+    
+    
+    <!-- Drag-N-Drop Zone -->
+    <div id="dropZone"><span data-i18n="DROP HERE">DROP HERE</span></div>
+    
+    <!-- Modals -->
+    <div class="modal fade" id="modal-add">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-i18n="Add meme">Add meme</h5>
+                    <button class="close" data-dismiss='modal' aria-label='Close'><span>&times</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div>
+                            <img src="" alt="" id="add-meme-img" onerror="this.setAttribute('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')">
+                        </div>
+                        <label for="add-meme-url" class='form-control-label' data-i18n="Image URL">Image URL:</label>
+                        <input type="text" id="add-meme-url" class='form-control'>
+                        <label for="add-meme-tags" class='form-control-label' data-i18n="Tags">Tags (separated by commas)</label>
+                        <input type="text" id="add-meme-tags" class='form-control'>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id='add-meme-btn' data-i18n="Add meme">Add meme</button>
+                    <button class="btn btn-secondary" data-dismiss='modal' data-i18n="Cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-i18n="Edit meme">Edit meme</h5>
+                    <button class="close" data-dismiss='modal' aria-label='Close'><span>&times</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                       <div>
+                            <img src="" alt="" id="edit-meme-img" onerror="this.setAttribute('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')">
+                        </div>
+                        <label for="edit-meme-url" class='form-control-label' data-i18n="Image URL">Image URL:</label>
+                        <input type="text" id="edit-meme-url" class='form-control'>
+                        <label for="edit-meme-tags" class='form-control-label' data-i18n="Tags">Tags (separated by commas)</label>
+                        <input type="text" id="edit-meme-tags" class='form-control'>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id='edit-meme-btn' data-i18n="Save">Save</button>
+                    <button class="btn btn-secondary" data-dismiss='modal' data-i18n="Cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-meme-img">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-i18n="Meme">Meme</h5>
+                    <button class="close" data-dismiss='modal' aria-label='Close'><span>&times</span></button>
+                </div>
+                <div class="modal-body">
+                    <img src="" alt="" id="big-meme-img" onerror="this.setAttribute('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-help">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-i18n="Help">Help</h5>
+                    <button class="close" data-dismiss='modal' aria-label='Close'><span>&times</span></button>
+                </div>
+                <div class="modal-body" data-i18n="[html]help-modal">
+                    <h5 class='border border-top-0 border-left-0 border-right-0'>How to add a meme?</h5>
+                    <ul>
+                        <li>
+                            <b>Option 1</b> 
+                            <ol>
+                                <li>
+                                    Press the <button class='btn btn-primary'><i class="fa fa-plus" aria-hidden="true"></i> button</button>
+                                </li>
+                                <li>Past image URL in the "URL" field</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <b>Option 2</b>
+                            <ol>
+                                <li>Dran-n-drop image from your browser to the program</li>
+                            </ol>
+                        </li>
+                        <li>Write tags in "Tags field"</li>
+                        <li>Press the "Add meme" button</li>
+                    </ul>
+                    <h5 class='border border-top-0 border-left-0 border-right-0'>How to copy meme URL?</h5>
+                    <p>Click on the <button class='btn btn-primary btn-sm'><i class="fa fa-clipboard" aria-hidden="true"></i></button> button.</p>
+                    <h5 class='border border-top-0 border-left-0 border-right-0'>How to save meme as a file?</h5>
+                    <p>Just drug-n-drop meme from the program to your desktop.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Templates -->
+    <script id="tmpl-meme">
+        <div class="meme card" data-id="${_id}">
+            {{if url}}
+                <div class='img-container'>
+                    <img class='card-img-top' src="${url}">
+                </div>
+            {{/if}}
+            <div class='card-body text-center'>
+                {{if url}}
+                    <button class='btn btn-primary btn-sm' data-clipboard-text='${url}'><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+                {{/if}}
+                <button class='btn btn-info btn-sm meme-edit'><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                <button class='btn btn-danger btn-sm meme-delete'><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            </div>
+            {{if tags.length}}
+                <div class="tags card-footer">
+                    {{each tags}}<span class='badge badge-dark'>${$value}</span> {{/each}}
+                </div>
+            {{/if}}
+        </div>
+    </script>
+    
+    <!-- Scripts -->
+    <!-- jQuery fix -->
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+    <script src='js/lib/jquery-3.2.1.min.js'></script>
+    <script src='js/lib/jquery.tmpl.min.js'></script>
+    <script src='js/lib/popper.min.js'></script>
+    <script src='js/lib/bootstrap.min.js'></script>
+    <script src='js/lib/bootstrap-notify.min.js'></script>
+    <script>
+        if (window.module) module = window.module;
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>

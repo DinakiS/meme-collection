@@ -1,0 +1,15 @@
+{
+    "Add meme": "Добавить мем",
+    "Help": "Помощь",
+    "Edit meme": "Редактировать мем",
+    "Memes count": "Количество мемов:",
+    "Search": "Поиск",
+    "Image URL": "URL изображения:",
+    "Tags": "Теги (через запятую)",
+    "Save": "Сохранить",
+    "Cancel": "Отмена",
+    "Meme": "Мем",
+    "DROP HERE": "КИДАЙ СЮДА",
+    "This meme is already in the base!<br>": "Мем уже в базе!<br>",
+    "help-modal": "<h5 class='border border-top-0 border-left-0 border-right-0'>Как добавить мем?</h5><ul><li><b>Вариант 1</b><ol><li>Нажмите кнопку <button class='btn btn-primary'><i class='fa fa-plus' aria-hidden='true'></i></button></li><li>Вставьте адрес картинки в поле \"URL\"</li></ol></li><li><b>Вариант 2</b><ol><li>Перетащите изображение из браузера в окно программы</li></ol></li><li>Напишите нужные теги в поле \"Теги\"</li><li>Нажмите кнопку \"Добавить мем\"</li></ul><h5 class='border border-top-0 border-left-0 border-right-0'>Как скопировать URL картинки?</h5><p>Нажмите кнопку <button class='btn btn-primary btn-sm'><i class='fa fa-clipboard' aria-hidden='true'></i></button></p><h5 class='border border-top-0 border-left-0 border-right-0'>Как сохранить мем как файл?</h5><p>Просто перетащите изображение из программы на рабочий стол.</p>"
+}
