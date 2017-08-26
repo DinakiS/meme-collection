@@ -6,8 +6,6 @@
   "dependencies": {
     "clipboard": "^1.7.1",
     "electron": "^1.7.5",
-    "i18next": "^9.0.0",
-    "jquery-i18next": "^1.2.0",
     "nedb": "^1.8.0"
   },
   "devDependencies": {
@@ -15,12 +13,17 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . Game --platform=win32 --arch=x64 --electron-version=1.4.12 --app-version=0.1.0 --out=dist --ignore=dist --prune --overwrite",
-    "build-32": "electron-packager . Game --platform=win32 --arch=ia32 --electron-version=1.4.12 --app-version=0.1.0 --out=dist --ignore=dist --prune --overwrite"
+    "build": "electron-packager . Memes --platform=win32 --arch=x64 --electron-version=1.4.12 --app-version=0.1.0 --out=dist --ignore=dist --prune --overwrite",
+    "build-32": "electron-packager . Memes --platform=win32 --arch=ia32 --electron-version=1.4.12 --app-version=0.1.0 --out=dist --ignore=dist --prune --overwrite"
   },
   "repository": {
-      "type": "git",
-      "url": "https://github.com/DinakiS/meme-collection"
+    "type": "git",
+    "url": "https://github.com/DinakiS/meme-collection"
+  },
+  "build": {
+    "win": {
+      "icon": "icon.ico"
+    }
   },
   "author": "Dinaki",
   "license": "MIT"

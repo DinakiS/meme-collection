@@ -8,12 +8,20 @@
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/flags.css">
 </head>
 <body>
     <nav class="navbar sticky-top navbar-light bg-light">
         <div>
             <button class='btn btn-primary' data-toggle='modal' data-target='#modal-add'><i class="fa fa-plus" aria-hidden="true"></i></button>
-            <button class='btn btn-secondary' data-toggle='modal' data-target='#modal-help'><i class="fa fa-question" aria-hidden="true"></i></button>
+            <button class='btn btn-info' data-toggle='modal' data-target='#modal-help'><i class="fa fa-question" aria-hidden="true"></i></button>
+            <div class="dropdown" style='display: inline-block;'>
+                <a id='language' href='#' role='button' data-toggle='dropdown'></a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item" data-lang='ru'>Русский</a>
+                    <a href="#" class="dropdown-item" data-lang='en' data-flag='gb'>English</a>
+                </div>
+            </div>
         </div>
         <span><span data-i18n="Memes count">Memes count:</span> <span id='memes-count'></span></span>
         <form class="form-inline">
@@ -97,7 +105,7 @@
                     <h5 class="modal-title" data-i18n="Help">Help</h5>
                     <button class="close" data-dismiss='modal' aria-label='Close'><span>&times</span></button>
                 </div>
-                <div class="modal-body" data-i18n="[html]help-modal">
+                <div class="modal-body" data-i18n="help-modal">
                     <h5 class='border border-top-0 border-left-0 border-right-0'>How to add a meme?</h5>
                     <ul>
                         <li>
@@ -115,13 +123,15 @@
                                 <li>Dran-n-drop image from your browser to the program</li>
                             </ol>
                         </li>
-                        <li>Write tags in "Tags field"</li>
+                        <li>Write tags in "Tags" field</li>
                         <li>Press the "Add meme" button</li>
                     </ul>
                     <h5 class='border border-top-0 border-left-0 border-right-0'>How to copy meme URL?</h5>
                     <p>Click on the <button class='btn btn-primary btn-sm'><i class="fa fa-clipboard" aria-hidden="true"></i></button> button.</p>
                     <h5 class='border border-top-0 border-left-0 border-right-0'>How to save meme as a file?</h5>
                     <p>Just drug-n-drop meme from the program to your desktop.</p>
+                    <h5 class='border border-top-0 border-left-0 border-right-0'>Repository</h5>
+                    <a href='#' data-link="https://github.com/DinakiS/meme-collection">GitHub</a>
                 </div>
             </div>
         </div>
@@ -154,17 +164,18 @@
     <!-- jQuery fix -->
     <script>
         if (typeof module === 'object') {
-            window.module = module;
+            window.moduleT = module;
             module = undefined;
         }
     </script>
     <script src='js/lib/jquery-3.2.1.min.js'></script>
     <script src='js/lib/jquery.tmpl.min.js'></script>
+    <script src='js/lib/jquery.translate.js'></script>
     <script src='js/lib/popper.min.js'></script>
     <script src='js/lib/bootstrap.min.js'></script>
     <script src='js/lib/bootstrap-notify.min.js'></script>
     <script>
-        if (window.module) module = window.module;
+        if (window.moduleT) module = window.moduleT;
     </script>
     <script src="js/main.js"></script>
 </body>

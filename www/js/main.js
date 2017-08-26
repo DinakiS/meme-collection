@@ -1,36 +1,30 @@
 const ipcRenderer = require('electron').ipcRenrerer,
       clipboard = require('clipboard'),
-      i18n = require('i18next'),
-      jqueryI18next = require('jquery-i18next'),
-      config = require(__dirname + '/config.json');
+      config = require(__dirname + '/config.json'),
+      fs = require('fs');
 
 const NeDB = require('nedb'),
-      db = new NeDB({ filename: __dirname + '/memes.db', autoload: true, timestampData: true })
+      db = new NeDB({ filename: __dirname + '/memes.db', autoload: true, timestampData: true });
+
+let translator;
 
 let memeList = $('#meme-list'),
     dropZone = document.getElementById('dropZone'),
     searchTimeout = null,
     dropTimeout = null;
 
-i18n.init({
-    lng: 'ru',
-    debug: true,
-    resources: {
-        ru: {
-            translation: require(__dirname + '/locales/ru/translation.json')
-        }
-    }
-})
-
-jqueryI18next.init(i18n, $, {
-    tName: 't',
-    i18nName: 'i18n',
-    selectorAttr: 'data-i18n'
-})
-
 $(function() {
     new clipboard('.btn');
-    $('body').localize()
+    
+    tr(config.language);
+    
+    $('[data-lang]').each(function(i) {
+        let lang = $(this).data('lang');
+        if ($(this).data('flag')) lang = $(this).data('flag');
+        this.innerHTML = `<i class="flag-${lang.toUpperCase()}"></i> ${this.innerHTML}`;
+    })
+    
+    $('#language').html(`<i class="flag-${tr_flag()}"></i>`)
     
     db.find({}).sort({createdAt: -1}).exec((err, doc) => {
         if (err) throw new Error(err);
@@ -155,7 +149,17 @@ $(function() {
         })
     }
     
-    // === Check for dublicates ===
+    // ====== Change language ======
+    $(document).on('click', '[data-lang]', function(event) {
+        let lang = $(this).data('lang');
+        tr(lang);
+        config.language = lang;
+        $('#language').html(`<i class="flag-${tr_flag()}"></i>`);
+        
+        fs.writeFileSync(__dirname + '/config.json', JSON.stringify(config));
+    })
+    
+    // ====== Check for dublicates ======
     $(document).on('change', '#add-meme-url', function(event) {
         let url = $(this).val();
         
@@ -164,7 +168,7 @@ $(function() {
         checkDublicatesByURL(url, function(isDub) {
             if (isDub) {
                 $.notify({
-                    title: i18n.t('This meme is already in the base!<br>'),
+                    title: translator.get('This meme is already in the base!<br>'),
                     message: `<img src="${isDub.url}" style="width: 200px;">`
                 }, {
                     type: "danger",
@@ -207,7 +211,7 @@ $(function() {
         if (event.dataTransfer.files.length !== 0) {
             let file = event.dataTransfer.files[0];
             
-            
+            // Может быть в будущем здесь будет что-то
         } else {
             let data = event.dataTransfer.items;
             if (data[0].kind == 'string' && data[0].type.match('^text/plain')) {
@@ -248,4 +252,37 @@ $(function() {
             }
         }
     }
+    
+    // ====== Open links in browser ======
+    $(document).on('click', '[data-link]', (event) => {
+        var link = $(event.currentTarget).data('link');
+        require('electron').shell.openExternal(link);
+    })
 })
+
+function tr(lang = 'en') {
+    if (!translator) {
+        let languages = ['ru', 'en'],
+            dict = {};
+
+        languages.forEach(language => {
+            try {
+                dict[language] = require(`${__dirname}/locales/${language}.json`);
+            } catch (e) {
+                console.error('Can\'t load langualge', language);
+            }
+        })
+
+        translator = $('body').translate({ lang: lang, t: dict });
+    } else {
+        translator.lang(lang);
+    }
+}
+function tr_flag() {
+    let flag = config.language,
+        fileFlag = translator.get('__flag');
+    if (fileFlag !== '__flag')
+        flag = fileFlag;
+    
+    return flag.toUpperCase();
+}

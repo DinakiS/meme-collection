@@ -50,4 +50,7 @@ div#dropZone {
     border: 3px dashed #e2e2e2;
     border-radius: 15px; }
 
+#language {
+  cursor: pointer; }
+
 /*# sourceMappingURL=main.css.map */
