@@ -1,12 +1,13 @@
 const ipcRenderer = require('electron').ipcRenrerer,
       clipboard = require('clipboard'),
-      config = require(__dirname + '/config.json'),
+      {app} = require('electron').remote
       fs = require('fs');
 
 const NeDB = require('nedb'),
       db = new NeDB({ filename: __dirname + '/memes.db', autoload: true, timestampData: true });
 
-let translator;
+let config = require(__dirname + '/config.json'),
+    translator;
 
 let memeList = $('#meme-list'),
     dropZone = document.getElementById('dropZone'),
@@ -23,7 +24,6 @@ $(function() {
         if ($(this).data('flag')) lang = $(this).data('flag');
         this.innerHTML = `<i class="flag-${lang.toUpperCase()}"></i> ${this.innerHTML}`;
     })
-    
     $('#language').html(`<i class="flag-${tr_flag()}"></i>`)
     
     db.find({}).sort({createdAt: -1}).exec((err, doc) => {
@@ -118,6 +118,11 @@ $(function() {
         let search = $(this).val().trim();
         
         searchTimeout = setTimeout(function() {
+            if (search === '!dev') {
+                showDevTools();
+                return;
+            }
+            
             $(memeList).empty();
             if (search.length == 0) {
                 db.find({}).sort({createdAt: -1}).exec((err, doc) => {
@@ -258,6 +263,13 @@ $(function() {
         var link = $(event.currentTarget).data('link');
         require('electron').shell.openExternal(link);
     })
+    
+    // ====== Development ======
+    function showDevTools() {
+        html = `<button class='btn btn-primary' onclick="require('electron').remote.getCurrentWindow().toggleDevTools()">Open dev tools</button>`;
+        
+        $(memeList).html(html);
+    }
 })
 
 function tr(lang = 'en') {
